@@ -1,7 +1,11 @@
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-
+/**
+ * Battleship GUI Main
+ * @author Michael
+ * @author Brock
+ */
 public class Battleship
 {
 

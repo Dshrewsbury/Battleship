@@ -1,4 +1,9 @@
-
+/**
+ * A ship class in the Battleship game
+ * 
+ * @author Michael
+ * @author Brock
+ */
 public class Ship
 {
    String _name;

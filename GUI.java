@@ -4,7 +4,11 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-
+/**
+ * GUI Controller
+ * @author Michael
+ * @author Brock
+ */
 public class GUI implements KeyListener
 {
    JFrame frame = new JFrame();
