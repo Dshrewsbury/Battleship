@@ -4,6 +4,9 @@
  * @author Michael
  * @author Brock
  */
+
+// Dan Comments: Need something that sets/initializes orientation of ship, though I guess it could default to 0
+
 public class Ship
 {
    String _name;
@@ -81,6 +84,7 @@ public class Ship
     * Rotates the orientation of the ship. 0 is horizontal, 1 is vertical
     */
    public void rotateShip() {_orientation = (_orientation + 1) % 2;}
+
    
    
    
