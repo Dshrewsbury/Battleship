@@ -1,3 +1,5 @@
+import.awt.Color;
+
 public class Grid
 { 
 	private int _colorGrid[][];
@@ -52,27 +54,42 @@ public class Grid
 
  	// KIRSTEN/NOAH
  	void setUpGrid()
- 	{
- 		// Display set up grid GUI
+ 	{		
+		Ship[] shipArray = {aircraftCarrier, battleship, submarine, cruiser, destroyer};
+		int[] shipLocation;
+		
+		// Display set up grid GUI
+		displayGrid();
+		displayLegend();
+		displayDragDropCrap(); // Couldn't remember what this function did.  Should it be here?
 
  		// GUI will return coordinate, orientation for each ship
 
  		// some getFunctionCall that returns/sets coordinates/orientation
- 		aircraftCarrier.setLocation(xCoordinate, yCoordinate);
- 		aircraftCarrier.setOrientation(orientation);
- 		setShipOnGrid(aircraftCarrier, xCoordinate, yCoordinate, orientation);
-
+		
+		for (Ship aShip : shipArray)
+		{
+			// Set the starting location of the ship, and its orientation
+			aShip.setLocation(xCoordinate, yCoordinate);
+			aShip.setOrientation(orientation);
+			
+			// Does getLocation() include orientation?  If not, may want to consider adding getOrientation() method to UML.
+			shipLocation = aShip.getShipLocation()
+			
+			setShipOnGrid(aShip, shipLocation[0], shipLocation[1], orientation);
+		}
+		
  		// Repeat above for other ships, could just turn 5 ships into ship array
 
  		// Whatever color we decide for ship, just leave this here aren't sure if we'll be using it
- 		_colorGrid[xCoordinate][yCoordinate] = gray
+ 		_colorGrid[xCoordinate][yCoordinate] = Color.GRAY;
 
 
 
  	}
 
  	// - MICHAEL/BROCK
- 	void setShipOnGrid(Ship ship, int xCoordinate, int yCoordinate, int orientation)
+ 	void setShipOnGrid(Ship ship, int xCoordinate, int yCoordinate, byte orientation)
  	{
  		int shipSize = ship.getSize();
 
