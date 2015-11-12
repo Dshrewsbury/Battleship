@@ -1,9 +1,9 @@
-import.awt.Color;
+import java.awt.Color;
 
 public class Grid
 { 
-	private int _colorGrid[][];
-	private Ship _shipGrid[][];
+	private Color[][] _colorGrid;
+	private Ship[][] _shipGrid;
 	private int _shipsSunk = 0; // Keeps track of how many ships have been sunk
 	// Should probably just make this into an array
 	private Ship aircraftCarrier;
@@ -21,7 +21,16 @@ public class Grid
  		cruiser = new Ship("cruiser", 3);
  		destroyer = new Ship("destroyer", 2);
     
-    	// Initialize colorGrid to all blue for water - MICHAEL/BROCK
+ 		_colorGrid = new Color[20][15];
+ 
+ 		      // Initialize colorGrid to all blue for water - MICHAEL/BROCK
+ 		      for (int i = 0; i < _colorGrid.length; i++)
+ 		      {
+ 		         for (int j = 0; j < _colorGrid[i].length; j++)
+ 		         {
+ 		            _colorGrid[i][j] = Color.BLUE;
+ 		         }
+ 		      }
  	}
 
  	// Return whether it was a hit or not - KIRSTEN/NOAH
@@ -34,17 +43,9 @@ public class Grid
 
  	}
 
- 	// - MICHAEL/BROCK
+ 	// Returns whether or not the selection made by the user is a valid selection.  - MICHAEL/BROCK
  	boolean isValidSelection(int xCoordinate, int yCoordinate)  
- 	{
- 		boolean isValidMove = false;
- 		// If colorgrid is anything but blue, its already been chosen so return false
- 		if()
-
- 		// Else its a valid choice so return true
-
- 		return isValidMove;
- 	}
+ 	   {return _colorGrid[xCoordinate][yCoordinate].equals(Color.BLUE);}
 
  	void displayGrid()
  	{
@@ -88,13 +89,13 @@ public class Grid
 
  	}
 
- 	// - MICHAEL/BROCK
+ 	// Sets the ship on the grid, with the ship, the coordinates, and the orientation. - MICHAEL/BROCK
  	void setShipOnGrid(Ship ship, int xCoordinate, int yCoordinate, byte orientation)
  	{
  		int shipSize = ship.getSize();
 
  		// If its horizontal set the x axis values to the ship
- 		for(int i = 0, i < shipSize; i++)
+ 		for(int i = 0; i < shipSize; i++)
  		{
  			_shipGrid[xCoordinate + i][yCoordinate] = ship;
  		}
@@ -102,7 +103,7 @@ public class Grid
  		
 
  		// For now at least we'll say the 
- 		_colorGrid[xCoordinate][yCoordinate] = gray
+ 		_colorGrid[xCoordinate][yCoordinate] = Color.GRAY;
 
  	}
 
