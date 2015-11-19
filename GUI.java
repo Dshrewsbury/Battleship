@@ -9,27 +9,80 @@ import java.awt.event.KeyListener;
  * @author Michael
  * @author Brock
  */
-public class GUI implements KeyListener
+public class GUI
 {
-   JFrame frame = new JFrame();
+   // Instance variables
+   JButton[][] _buttonGrid = new JButton[20][15];
+   JFrame _frame = new JFrame();
+   JPanel _buttonPanel = new JPanel();
+   JPanel _displayPanel = new JPanel();
+   JPanel _panelOfPanels = new JPanel();
+   JPanel _panelOfLabels = new JPanel();
+   JLabel _buttonLabel = new JLabel("Enemy Grid", SwingConstants.CENTER);
+   JLabel _displayLabel = new JLabel("Your Grid", SwingConstants.CENTER);
+   JLabel _headerLabel = new JLabel("BATTLESHIP", SwingConstants.CENTER);
    
+   public void createButtonGrid()
+   {  
+      // Set the layout of the button panel to a grid layout.
+      _buttonPanel.setLayout(new GridLayout(20, 15));
+      
+      // Create the 2d array of buttons.
+      for (int i = 0; i < _buttonGrid.length; i++)
+      {
+         for (int j = 0; j < _buttonGrid[i].length; j++)
+         {
+            _buttonGrid[i][j] = new JButton();
+            _buttonGrid[i][j].setBackground(Color.BLUE);
+            _buttonPanel.add(_buttonGrid[i][j]);
+         }
+      }
+   }
    
+   public void addButtonPanel()
+   {  
+      _buttonLabel.setFont(new Font("Times New Roman", Font.PLAIN, 32));
+      _displayLabel.setFont(new Font("Times New Roman", Font.PLAIN, 32));
+      _headerLabel.setFont(new Font("Times New Roman", Font.BOLD, 50));
+      
+      // Set layout of the two major panels.
+      _panelOfLabels.setLayout(new BorderLayout());
+      _panelOfPanels.setLayout(new BorderLayout());
+      
+      _buttonPanel.setPreferredSize( new Dimension(850, 850));
+      _displayPanel.setPreferredSize(new Dimension(850, 850));
+      _panelOfLabels.setPreferredSize(new Dimension(100, 100));
+      
+      // TODO Remove later
+      _displayPanel.setBackground(Color.RED);
+      
+      _panelOfLabels.add(_displayLabel, BorderLayout.WEST);
+      _panelOfLabels.add(_headerLabel, BorderLayout.CENTER);
+      _panelOfLabels.add(_buttonLabel, BorderLayout.EAST);
+      
+      _panelOfPanels.add(_displayPanel, BorderLayout.WEST);
+      _panelOfPanels.add(_buttonPanel, BorderLayout.EAST);
+      
+      _frame.setLayout(new BorderLayout());
+      _frame.add(_panelOfLabels, BorderLayout.NORTH);
+      _frame.add(_panelOfPanels, BorderLayout.SOUTH);
+   }
    
    public void setSize(Dimension size)
    {
-      frame.setSize(size);
+      _frame.setSize(size);
    }
    
    
    public void setVisible(boolean isVisible)
    {
-      frame.setVisible(isVisible);
+      _frame.setVisible(isVisible);
    }
    
    
    public void exitOnClose()
    {
-      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      _frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    }
    
    

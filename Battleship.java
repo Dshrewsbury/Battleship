@@ -9,8 +9,8 @@ import java.util.Scanner;
  */
 public class Battleship
 {
-	private Player _player1;
-	private Player _player2;
+	private static Player _player1;
+	private static Player _player2;
 
    public static void main(String[] args)
    {
@@ -20,6 +20,10 @@ public class Battleship
       window.setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
       
       window.exitOnClose();
+      
+      window.createButtonGrid();
+      
+      window.addButtonPanel();
       
       window.setVisible(true);
 
@@ -48,8 +52,8 @@ public class Battleship
       // In while loop have each player take a turn until one has won
 	  while (!_player1.checkForVictory() && !_player2.checkForVictory())
 	  {
-		  _player1.takeTurn();
-		  _player2.takeTurn();
+		  _player1.takeATurn();
+		  _player2.takeATurn();
 	  }
    }
 
