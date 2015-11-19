@@ -37,12 +37,29 @@ public class Grid
  	boolean isHit(xCoordinate, yCoordinate)
  	{
 
- 		// If its a hit, increment hit count on that ship
+		boolean result = false;
 
- 		// Check to see if that ship is sunk, if it is increment shipsSunk counter
+		if (_shipGrid[xCoordinate][yCoordinate] != null) 
+		{
+
+			// If its a hit, increment hit count on that ship
+			_shipGrid[xCoordinate][yCoordinate].incrementHitCounter();         
+
+			result = true;
+
+
+			// Check to see if that ship is sunk, if it is increment shipsSunk counter
+			if (_shipGrid[xCoordinate][yCoordinate].checkIfShipSunk())
+			{
+				_shipsSunk = _shipsSunk + 1;
+            }
+        }
+
+      return result;
 
  	}
 
+	
  	// Returns whether or not the selection made by the user is a valid selection.  - MICHAEL/BROCK
  	boolean isValidSelection(int xCoordinate, int yCoordinate)  
  	   {return _colorGrid[xCoordinate][yCoordinate].equals(Color.BLUE);}

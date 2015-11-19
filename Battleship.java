@@ -49,7 +49,11 @@ public class Battleship
 	  while (!_player1.checkForVictory() && !_player2.checkForVictory())
 	  {
 		  _player1.takeTurn();
-		  _player2.takeTurn();
+		  
+		  if (!_player1.checkForVictory())
+		  {
+			_player2.takeTurn();  
+		  }
 	  }
    }
 
