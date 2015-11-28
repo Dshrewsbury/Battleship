@@ -47,7 +47,9 @@ public class Battleship
 	  _player1.initializeGrid();
 	  _player2.initializeGrid();
 	  
+	  // Display player 1's GUI
 	  
+	  // After a valid move, display player 2's GUI, so valid move needs close the GUI?
 
       // In while loop have each player take a turn until one has won
 	  while (!_player1.checkForVictory() && !_player2.checkForVictory())

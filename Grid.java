@@ -34,7 +34,7 @@ public class Grid
  	}
 
  	// Return whether it was a hit or not - KIRSTEN/NOAH
- 	boolean isHit(xCoordinate, yCoordinate)
+ 	boolean isHit(int xCoordinate, int yCoordinate)
  	{
 
 		boolean result = false;

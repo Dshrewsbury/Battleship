@@ -2,6 +2,7 @@
 public class Player
 { 
 
+   // Player should own GUI
    private static final int GRID_WIDTH             = 15;
    private static final int GRID_LENGTH            = 20;
    
@@ -10,7 +11,7 @@ public class Player
    private int _xCoordinate  =  -1; //the first index given, indicating row
    private int _yCoordinate  = -1; //the second index given, indicating column
    private boolean _validTargetIs = false; //whether target coordinates have been “entered” before 
-   private int[] _targetCoordinates = new int[2];
+   //private int[] _targetCoordinates = new int[2];
    private boolean _shipsSet;
    private int _shipsSunk = 0; // Keeps track of how many ships have been sunk
    private Player _otherPlayer;
@@ -22,33 +23,33 @@ public class Player
  }
 
 
-  public void takeATurn()
+  public void takeATurn(int xCoordinate, int yCoordinate)
   {
 
-    // Loop here that continues to get a move until it is valid
-    while  (!_validTargetIs) 
-    {
 
-       _targetCoordinates = mouseListener();  // within gridlistener() inner class of GUI? Returns x and y coordinates of selected target on grid
-       _xCoordinate = _targetCoordinates[0];
-       _yCoordinate = _targetCoordinates[1];
+    
+       _xCoordinate = xCoordinate;
+       _yCoordinate = yCoordinate;
 
         // GUI returns coordinates to check for hit/miss, need to error trap if they try and select something thats already been hit- so check color of colorgrid
        _validTargetIs = _grid.isValidSelection(xCoordinate, yCoordinate); // returns true if its a valid move
-    }
-
-    // Valid move was made so check for hit, which will increment hit counter of ship in the grid class function, and check to see if ship was sunk
-    if(_grid.isHit(_xCoordinate, _yCoordinate))
+       
+       
+    if(_validTargetIs)
     {
-      _grid.setColor(_xCoordinate, _yCoordinate, red) //Red or some int that represents red
+	    // Valid move was made so check for hit, which will increment hit counter of ship in the grid class function, and check to see if ship was sunk
+	    if(_grid.isHit(_xCoordinate, _yCoordinate))
+	    {
+	      _grid.setColor(_xCoordinate, _yCoordinate, red); //Red or some int that represents red
+	
+	      // Possibly call some GUI function to display some sunk color
+	    } 
+	    else // Else it was a miss so set it to white
+	    {
+	       _grid.setColor(_xCoordinate, _yCoordinate, white); //Red or some int that represents red
+	    }
 
-      // Possibly call some GUI function to display some sunk color
-    } 
-    else // Else it was a miss so set it to white
-    {
-       _grid.setColor(_xCoordinate, _yCoordinate, white) //Red or some int that represents red
     }
-
   }
   
   public void initializeShips()
@@ -277,5 +278,8 @@ public class Player
       _grid.setUpGrid();
    }
 
+  // Display GUI
+   
+  // Close GUI, should return whether or not there was a victory
 }
 

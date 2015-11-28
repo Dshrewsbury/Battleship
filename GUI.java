@@ -1,15 +1,17 @@
 import java.awt.*;
+
 import java.awt.dnd.*;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 
 /**
  * GUI Controller
  * @author Michael
  * @author Brock
  */
-public class GUI
+public class GUI implements ActionListener
 {
    // Instance variables
    JButton[][] _buttonGrid = new JButton[20][15];
@@ -34,10 +36,25 @@ public class GUI
          {
             _buttonGrid[i][j] = new JButton();
             _buttonGrid[i][j].setBackground(Color.BLUE);
+            _buttonGrid[i][j].addActionListener(this);
             _buttonPanel.add(_buttonGrid[i][j]);
          }
       }
    }
+   
+   // Remarkably inefficient way of finding your location- but not slow enough
+   // that it matters considering its a small 2d grid
+   public void actionPerformed(ActionEvent e) {
+	   for (int row = 0; row < 20; row++) {
+	     for (int col = 0; col < 15; col++) {
+	        if (buttonGrid[row][col] == e.getSource())
+	        {
+	        // here you have your row and column
+	        //takeTurn(row, col);
+	        }
+	     }
+	   }
+	 }
    
    public void addButtonPanel()
    {  
