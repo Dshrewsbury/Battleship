@@ -14,19 +14,6 @@ public class Battleship
 
    public static void main(String[] args)
    {
-   	// We don't know if it will work like this or not as Ben is handling it
-      GUI window = new GUI();
-      
-      window.setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
-      
-      window.exitOnClose();
-      
-      window.createButtonGrid();
-      
-      window.addButtonPanel();
-      
-      window.setVisible(true);
-
       // KIRSTEN/NOAH
       // Create two players, call initialize grid for both of them
 	  Scanner in = new Scanner(System.in);
@@ -48,6 +35,7 @@ public class Battleship
 	  _player2.initializeGrid();
 	  
 	  // Display player 1's GUI
+	  
 	  
 	  // After a valid move, display player 2's GUI, so valid move needs close the GUI?
 

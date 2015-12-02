@@ -1,9 +1,9 @@
 import java.awt.*;
-
 import java.awt.dnd.*;
+
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+
+import java.awt.event.*;
 
 
 /**
@@ -11,7 +11,7 @@ import java.awt.event.KeyListener;
  * @author Michael
  * @author Brock
  */
-public class GUI implements ActionListener
+public class GUI
 {
    // Instance variables
    JButton[][] _buttonGrid = new JButton[20][15];
@@ -35,26 +35,52 @@ public class GUI implements ActionListener
          for (int j = 0; j < _buttonGrid[i].length; j++)
          {
             _buttonGrid[i][j] = new JButton();
-            _buttonGrid[i][j].setBackground(Color.BLUE);
-            _buttonGrid[i][j].addActionListener(this);
+            _buttonGrid[i][j].setBackground(Color.WHITE);
+            _buttonGrid[i][j].addActionListener(new GridListener());
             _buttonPanel.add(_buttonGrid[i][j]);
          }
       }
    }
    
-   // Remarkably inefficient way of finding your location- but not slow enough
-   // that it matters considering its a small 2d grid
-   public void actionPerformed(ActionEvent e) {
-	   for (int row = 0; row < 20; row++) {
-	     for (int col = 0; col < 15; col++) {
-	        if (buttonGrid[row][col] == e.getSource())
-	        {
-	        // here you have your row and column
-	        //takeTurn(row, col);
-	        }
-	     }
-	   }
-	 }
+   private class GridListener implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e) 
+      {
+         // Create a frame for a dialog box if the button is invalid.
+         JFrame dialogBox;
+         
+         // Use a nested for loop to loop through the buttons and find which
+         // one was clicked.
+         for (int row = 0; row < 20; row++) 
+         {
+            for (int col = 0; col < 15; col++) 
+            {
+               // If the button is valid, continue, otherwise, show an error.
+               if (_buttonGrid[row][col] == e.getSource() && 
+                     _buttonGrid[row][col].getBackground() == Color.WHITE)
+               {
+                  //TODO Need to be able to take a turn
+               }
+               
+               else
+               {
+                  dialogBox = new JFrame();
+                  
+                  // Display an error message.
+                  JOptionPane.showMessageDialog(dialogBox, 
+                        "Button already chosen", "Invalid Button", 
+                        JOptionPane.ERROR_MESSAGE);
+               }
+            }
+         }
+      }      
+   }
+   
+   public void setColor(int xCoordinate, int yCoordinate, Color color)
+   {
+      _buttonGrid[xCoordinate][yCoordinate].setBackground(color);
+   }
+   
    
    public void addButtonPanel()
    {  
@@ -101,27 +127,5 @@ public class GUI implements ActionListener
    {
       _frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    }
-   
-   
-   public void keyPressed(KeyEvent event)
-   {
-      // TODO Auto-generated method stub
-      
-   }
-   
-   
-   public void keyReleased(KeyEvent event)
-   {
-      // TODO Auto-generated method stub
-      
-   }
-   
-   
-   public void keyTyped(KeyEvent event)
-   {
-      // TODO Auto-generated method stub
-      
-   }
-   
 }
 

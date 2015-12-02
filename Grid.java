@@ -2,7 +2,7 @@ import java.awt.Color;
 
 public class Grid
 { 
-	private Color[][] _colorGrid;
+   Color[][] _colorGrid;
 	private Ship[][] _shipGrid;
 	private int _shipsSunk = 0; // Keeps track of how many ships have been sunk
 	// Should probably just make this into an array
@@ -47,28 +47,29 @@ public class Grid
 
 			result = true;
 
-
 			// Check to see if that ship is sunk, if it is increment shipsSunk counter
 			if (_shipGrid[xCoordinate][yCoordinate].checkIfShipSunk())
 			{
 				_shipsSunk = _shipsSunk + 1;
-            }
-        }
+         }
+       }
 
       return result;
-
  	}
 
 	
  	// Returns whether or not the selection made by the user is a valid selection.  - MICHAEL/BROCK
  	boolean isValidSelection(int xCoordinate, int yCoordinate)  
- 	   {return _colorGrid[xCoordinate][yCoordinate].equals(Color.BLUE);}
+ 	   {return _colorGrid[xCoordinate][yCoordinate].equals(Color.WHITE);}
 
  	void displayGrid()
  	{
  		// Call GUI to display grid
 
  	}
+ 	
+ 	// Added by Michael - 12/1/15
+ 	boolean checkIfShipSunk(int x, int y) {return _shipGrid[x][y].checkIfShipSunk();}
 
  	// KIRSTEN/NOAH
  	void setUpGrid()
