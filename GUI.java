@@ -59,7 +59,12 @@ public class GUI
                if (_buttonGrid[row][col] == e.getSource() && 
                      _buttonGrid[row][col].getBackground() == Color.WHITE)
                {
-
+                  dialogBox = new JFrame();
+                  
+                  // Display a coordinate message.
+                  JOptionPane.showMessageDialog(dialogBox, 
+                        "Coordinates: " + row + ", " + col, 
+                        "Button Coordinates", JOptionPane.INFORMATION_MESSAGE);
                }
                
                else if (_buttonGrid[row][col] == e.getSource() && 
