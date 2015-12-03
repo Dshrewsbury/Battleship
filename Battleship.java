@@ -42,8 +42,7 @@ public class Battleship
       // In while loop have each player take a turn until one has won
 	  while (!_player1.checkForVictory() && !_player2.checkForVictory())
 	  {
-		  _player1.takeATurn();
-		  _player2.takeATurn();
+		 
 	  }
    }
 

@@ -59,10 +59,11 @@ public class GUI
                if (_buttonGrid[row][col] == e.getSource() && 
                      _buttonGrid[row][col].getBackground() == Color.WHITE)
                {
-                  //TODO Need to be able to take a turn
+
                }
                
-               else
+               else if (_buttonGrid[row][col] == e.getSource() && 
+                     _buttonGrid[row][col].getBackground() == Color.WHITE)
                {
                   dialogBox = new JFrame();
                   
