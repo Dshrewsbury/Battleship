@@ -79,8 +79,6 @@ public class Grid
 		
 		// Display set up grid GUI
 		displayGrid();
-		displayLegend();
-		displayDragDropCrap(); // Couldn't remember what this function did.  Should it be here?
 
  		// GUI will return coordinate, orientation for each ship
 
