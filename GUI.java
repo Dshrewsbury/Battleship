@@ -13,7 +13,10 @@ import java.awt.event.*;
  */
 public class GUI
 {
-   // Instance variables
+   private static Player _player1;
+   private static Player _player2;
+
+   // Instance variables, I'm assumming somewhere in here we'll add your own grid
    JButton[][] _buttonGrid = new JButton[20][15];
    JFrame _frame = new JFrame();
    JPanel _buttonPanel = new JPanel();
@@ -122,16 +125,32 @@ public class GUI
       _frame.setSize(size);
    }
    
-   
-   public void setVisible(boolean isVisible)
+   // This function will change, to accept an integer that tells the GUI which player window to display, have it return an integer to whether the game is over
+   public int setVisible(boolean isVisible)
    {
       _frame.setVisible(isVisible);
+
+      return 0;
    }
    
    
    public void exitOnClose()
    {
       _frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+   }
+
+   public void initializeGrids()
+   {
+      _player1 = new Player();
+      _player2 = new Player();
+
+      // Display setup window for player 1, which waits until acceptable placement then exits
+      // in that display, have action listener for two buttons, one that calls the randomize function, 
+      // two that is the "done" button and closes the window
+      // Pass player to setup window
+
+      // Display setup window for player 2, which waits until acceptable placement then exits
+
    }
 }
 
