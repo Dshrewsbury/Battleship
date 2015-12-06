@@ -72,42 +72,42 @@ public class Grid
  	boolean checkIfShipSunk(int x, int y) {return _shipGrid[x][y].checkIfShipSunk();}
 
  	// KIRSTEN/NOAH
- 	void setUpGrid(int xCoordinate, int yCoordinate, int orientation)
- 	{		
-		Ship[] shipArray = {aircraftCarrier, battleship, submarine, cruiser,
-		      destroyer};
-		int[] shipLocation;
-		
-		// Display set up grid GUI
-		displayGrid();
-
- 		// GUI will return coordinate, orientation for each ship
-
- 		// some getFunctionCall that returns/sets coordinates/orientation
-		
-		for (Ship aShip : shipArray)
-		{
-			// Set the starting location of the ship, and its orientation
-			aShip.setLocation(xCoordinate, yCoordinate);
-			aShip.setOrientation(orientation);
-			
-			// Does getLocation() include orientation?  If not, may want to consider adding getOrientation() method to UML.
-			shipLocation = aShip.getLocation();
-			
-		
-			//Modified by Kirsten Pierce on 12/5/15
-			aShip.setLocation(xCoordinate, yCoordinate);
-			aShip.setOrientation(orientation);
-		}
-		
- 		// Repeat above for other ships, could just turn 5 ships into ship array
-
- 		// Whatever color we decide for ship, just leave this here aren't sure if we'll be using it
- 		_colorGrid[xCoordinate][yCoordinate] = Color.GRAY;
-
-
-
- 	}
+ //	void setUpGrid(int xCoordinate, int yCoordinate, int orientation)
+// 	{		
+//		Ship[] shipArray = {aircraftCarrier, battleship, submarine, cruiser,
+//		      destroyer};
+//		int[] shipLocation;
+//		
+//		// Display set up grid GUI
+//		displayGrid();
+//
+// 		// GUI will return coordinate, orientation for each ship
+//
+// 		// some getFunctionCall that returns/sets coordinates/orientation
+//		
+//		for (Ship aShip : shipArray)
+//		{
+//			// Set the starting location of the ship, and its orientation
+//			aShip.setLocation(xCoordinate, yCoordinate);
+//			aShip.setOrientation(orientation);
+//			
+//			// Does getLocation() include orientation?  If not, may want to consider adding getOrientation() method to UML.
+//			shipLocation = aShip.getLocation();
+//			
+//		
+//			//Modified by Kirsten Pierce on 12/5/15
+//			aShip.setLocation(xCoordinate, yCoordinate);
+//			aShip.setOrientation(orientation);
+//		}
+//		
+// 		// Repeat above for other ships, could just turn 5 ships into ship array
+//
+// 		// Whatever color we decide for ship, just leave this here aren't sure if we'll be using it
+// 		_colorGrid[xCoordinate][yCoordinate] = Color.GRAY;
+//
+//
+//
+// 	}
 
  	// Sets the ship on the grid, with the ship, the coordinates, and the orientation. - MICHAEL/BROCK
  	void setShipOnGrid(Ship ship, int xCoordinate, int yCoordinate, byte orientation)
