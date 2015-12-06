@@ -11,6 +11,7 @@ import java.awt.event.*;
  * @author Michael
  * @author Brock
  */
+// Need to connect our Color Grid class to this GUI
 public class GUI
 {
    private static Player _player1;
@@ -72,8 +73,9 @@ public class GUI
                         "Coordinates: " + row + ", " + col, 
                         "Button Coordinates", JOptionPane.INFORMATION_MESSAGE);
                   
-                  // Needs to know which player to use 
-                 // _currentPlayer.takeATurn(row, col);
+                  // Needs to know which player to use, we also need to change the color of the selected cell based off of response
+                 // boolean result = _currentPlayer.takeATurn(row, col); 0 for miss 1 for hit? 
+                  // changeGridColor(row, col, result);
                   // switchPlayer();
                }
                

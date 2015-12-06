@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Random;
 
 
 public class Player
@@ -12,33 +13,18 @@ public class Player
    
    private GUI _colorGrid;
    private Grid _grid;
-   private String _name;
+
    private int _xCoordinate  =  -1; //the first index given, indicating row
    private int _yCoordinate  = -1; //the second index given, indicating column
    private boolean _validTargetIs = false; //whether target coordinates have been “entered” before 
    //private int[] _targetCoordinates = new int[2];
-   private boolean _shipsSet;
-   private int _shipsSunk = 0; // Keeps track of how many ships have been sunk
-   private Player _otherPlayer;
+   //private boolean _shipsSet;
+   //private int _shipsSunk = 0; // Keeps track of how many ships have been sunk
+   //private Player _otherPlayer;
 
 
- public Player(String playerName)
- {
-    _name = playerName;
-    
-    // We don't know if it will work like this or not as Ben is handling it
-    GUI _colorGrid = new GUI();
-    
-    _colorGrid.setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
-    
-    _colorGrid.exitOnClose();
-    
-    _colorGrid.createButtonGrid();
-    
-    _colorGrid.addButtonPanel();
-    
-    _colorGrid.setVisible(true);
- }
+ public Player()
+ { }
 
 
   public void takeATurn(int xCoordinate, int yCoordinate)
@@ -75,7 +61,7 @@ public class Player
   
   public void initializeShips()
   {
-	final int GRID_WIDTH             = 15;
+	 final int GRID_WIDTH             = 15;
      final int GRID_LENGTH            = 20;
      final int HORIZONTAL_ORIENTATION = 0;
      final int VERICAL_ORIENTATION    = 1;
