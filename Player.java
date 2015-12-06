@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.Random;
 
 
 public class Player
@@ -44,9 +43,7 @@ public class Player
 
   public void takeATurn(int xCoordinate, int yCoordinate)
   {
-
-
-    
+  
        _xCoordinate = xCoordinate;
        _yCoordinate = yCoordinate;
 
@@ -78,138 +75,119 @@ public class Player
   
   public void initializeShips()
   {
-     final int GRID_WIDTH             = 15;
-     final int GRID_LENGTH            = 20;
-     final int HORIZONTAL_ORIENTATION = 0;
-     final int VERICAL_ORIENTATION    = 1;
-     
-     final int AIRCRAFT_SIZE = 5;
-     final int BATTLESHIP_SIZE =4;
-     final int SUB_SIZE = 3;
-     final int CRUISER_SIZE = 3;
-     final int DESTROYER_SIZE = 2;
-     
-     // Construct Ships
-     Ship aircraftCarrier = new Ship("aircraftCarrier", AIRCRAFT_SIZE);
-     Ship battleship = new Ship("battleship", BATTLESHIP_SIZE);
-     Ship submarine = new Ship("submarine", SUB_SIZE);
-     Ship cruiser = new Ship("cruiser", CRUISER_SIZE);
-     Ship destroyer = new Ship("destroyer", DESTROYER_SIZE);
-
-     Ship[] shipTypes = { aircraftCarrier, battleship, submarine, cruiser,
-           destroyer };
-     Ship[][] shipGrid = new Ship[GRID_WIDTH][GRID_LENGTH];
-
-     Random orientationGenerator = new Random();
-     Random xCoordinateGenerator = new Random();
-     Random yCoordinateGenerator = new Random();
-
-     int orientation;
-     int xCoordinate;
-     int yCoordinate;
-     boolean shipSet = false;
-     boolean validCoordinates = false;
-     boolean shipsIntersect = false;
-     
-     
-     // Places each ship on to the shipGrid
-     for (int i = 0; i < shipTypes.length; i++)
-     {
-        // initially every ship is not set.
-        shipSet = false;
-        shipsIntersect = false;
-        
-        while (!shipSet)
-        {
-           // Randomly obtain the x-coordinate, y-coordinate, and orientation
-           // of the ship
-           xCoordinate = xCoordinateGenerator.nextInt((GRID_WIDTH));
-           yCoordinate = yCoordinateGenerator.nextInt((GRID_LENGTH));
-           orientation = orientationGenerator
-                 .nextInt((VERICAL_ORIENTATION - HORIZONTAL_ORIENTATION) + 1);
-           
-           
-           // Determine if the ship will be out of bounds, based starting
-           // coordinates and ship's size
-           if (orientation == VERICAL_ORIENTATION 
-                 && xCoordinate + shipTypes[i].getSize() >= GRID_WIDTH)
-           {
-              validCoordinates = false;
-           }
-           
-           else if (orientation == HORIZONTAL_ORIENTATION && yCoordinate 
-                 + shipTypes[i].getSize() >= GRID_LENGTH )
-           {
-              validCoordinates = false;
-           }
-           
-           else if (shipGrid[xCoordinate][yCoordinate] != null)
-           {
-              validCoordinates = false;
-           }
-           
-           // If ship's placement will be in-bounds, coordinates are valid
-           else
-           {
-              validCoordinates = true;
-           }
-           
-           // If the coordinates are valid, place a reference to the specific
-           // at appropriate grid locations
-           if (validCoordinates)
-           {
-              // If orientation horizontal, place ship on starting coordinates,
-              // and rightward for ship size - 1 units
-              if (orientation == HORIZONTAL_ORIENTATION)
-              {
-                 for (int j = 0; j < shipTypes[i].getSize() &&
-                       !shipsIntersect; j++)
-                 {
-                    // Makes sure ship references (besides starting coordinates
-                    //) aren't intersecting with already placed ships
-                    if (shipGrid[xCoordinate][yCoordinate + j] == null)
-                    {
-                       shipGrid[xCoordinate][yCoordinate + j] = shipTypes[i];
-                    }
-                    
-                    else
-                    {
-                       shipsIntersect = true;
-                    }
-                 }
-              }
-              
-              // If ship's orientation is vertical, then place ship reference
-              // on starting coordinates and downward for ship size - 1 units
-              else
-              {
-                 for (int j = 0; j < shipTypes[i].getSize() && 
-                       !shipsIntersect; j++)
-                 {
-                    
-                    // Makes sure ship references (besides starting coordinates
-                    //) aren't intersecting with already placed ships
-                    if (shipGrid[xCoordinate + j][yCoordinate] == null)
-                    {
-                       shipGrid[xCoordinate + j][yCoordinate] = shipTypes[i];
-                    }
-                    
-                    else
-                    {
-                       shipsIntersect = true;
-                    }
-                 }
-              }
-              
-              // If ship references have all occupied empty spaces
-              //ship was successfully set
-              if (!shipsIntersect)
-              {
-                 shipSet = true;
-              }
-           }
-        }
-     }
+	final int HORIZONTAL_ORIENTATION = 0;
+	final int VERICAL_ORIENTATION    = 1;
+	
+	final int AIRCRAFT_SIZE = 5;
+    final int BATTLESHIP_SIZE =4;
+    final int SUB_SIZE = 3;
+    final int CRUISER_SIZE = 3;
+    final int DESTROYER_SIZE = 2;
+	
+	int orientation;
+    int xCoordinate;
+    int yCoordinate;
+    boolean shipSet = false;
+    boolean validCoordinates = false;
+	
+    // Places each ship on to the shipGrid
+    for (int i = 0; i < shipTypes.length; i++)
+    {
+       // initially every ship is not set.
+       shipSet = false;
+       shipsIntersect = false;
+         
+       while (!shipSet)
+       {
+          // Randomly obtain the x-coordinate, y-coordinate, and orientation
+          // of the ship
+          xCoordinate = xCoordinateGenerator.nextInt((GRID_WIDTH));
+          yCoordinate = yCoordinateGenerator.nextInt((GRID_LENGTH));
+          orientation = orientationGenerator
+                .nextInt((VERICAL_ORIENTATION - HORIZONTAL_ORIENTATION) + 1);
+            
+            
+          // Determine if the ship will be out of bounds, based starting
+          // coordinates and ship's size
+          if (orientation == VERICAL_ORIENTATION 
+                && xCoordinate + shipTypes[i].getSize() >= GRID_WIDTH)
+          {
+             validCoordinates = false;
+          }
+            
+          else if (orientation == HORIZONTAL_ORIENTATION && yCoordinate 
+                + shipTypes[i].getSize() >= GRID_LENGTH )
+          {
+             validCoordinates = false;
+          }
+            
+          else if (shipGrid[xCoordinate][yCoordinate] != null)
+          {
+             validCoordinates = false;
+          }
+            
+          // If ship's placement will be in-bounds, coordinates are valid
+          else
+          {
+             validCoordinates = true;
+          }
+            
+          // If the coordinates are valid, place a reference to the specific
+          // at appropriate grid locations
+          if (validCoordinates)
+          {
+             // If orientation horizontal, place ship on starting coordinates,
+             // and rightward for ship size - 1 units
+             if (orientation == HORIZONTAL_ORIENTATION)
+             {
+                for (int j = 0; j < shipTypes[i].getSize() &&
+                      !shipsIntersect; j++)
+                {
+                   // Makes sure ship references (besides starting coordinates
+                   //) aren't intersecting with already placed ships
+                   if (shipGrid[xCoordinate][yCoordinate + j] == null)
+                   {
+                      shipGrid[xCoordinate][yCoordinate + j] = shipTypes[i];
+                   }
+                     
+                   else
+                   {
+                      shipsIntersect = true;
+                   }
+                }
+             }
+               
+             // If ship's orientation is vertical, then place ship reference
+             // on starting coordinates and downward for ship size - 1 units
+             else
+             {
+                for (int j = 0; j < shipTypes[i].getSize() && 
+                      !shipsIntersect; j++)
+                {
+                     
+                   // Makes sure ship references (besides starting coordinates
+                   //) aren't intersecting with already placed ships
+                   if (shipGrid[xCoordinate + j][yCoordinate] == null)
+                   {
+                      shipGrid[xCoordinate + j][yCoordinate] = shipTypes[i];
+                   }
+                     
+                   else
+                   {
+                      shipsIntersect = true;
+                   }
+                }
+             }
+               
+             // If ship references have all occupied empty spaces
+             //ship was successfully set
+             if (!shipsIntersect)
+             {
+                shipSet = true;
+             }
+          }
+       }
+    }
   }
 
 //NEED TO DISCUSS!!!!!

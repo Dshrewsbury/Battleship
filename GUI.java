@@ -15,8 +15,11 @@ public class GUI
 {
    private static Player _player1;
    private static Player _player2;
-
-   // Instance variables, I'm assumming somewhere in here we'll add your own grid
+   
+   // Have a pointer to the current player?
+   private Player _currentPlayer;
+   
+   // Instance variables, I'm assuming somewhere in here we'll add your own grid
    JButton[][] _buttonGrid = new JButton[20][15];
    JFrame _frame = new JFrame();
    JPanel _buttonPanel = new JPanel();
@@ -31,7 +34,7 @@ public class GUI
    {  
       // Set the layout of the button panel to a grid layout.
       _buttonPanel.setLayout(new GridLayout(20, 15));
-      
+      // NEED TO ADD HEADERS, A-J, 1-10
       // Create the 2d array of buttons.
       for (int i = 0; i < _buttonGrid.length; i++)
       {
@@ -68,6 +71,10 @@ public class GUI
                   JOptionPane.showMessageDialog(dialogBox, 
                         "Coordinates: " + row + ", " + col, 
                         "Button Coordinates", JOptionPane.INFORMATION_MESSAGE);
+                  
+                  // Needs to know which player to use 
+                 // _currentPlayer.takeATurn(row, col);
+                  // switchPlayer();
                }
                
                else if (_buttonGrid[row][col] == e.getSource() && 
@@ -106,7 +113,7 @@ public class GUI
       _panelOfLabels.setPreferredSize(new Dimension(100, 100));
       
       // TODO Remove later
-      _displayPanel.setBackground(Color.RED);
+      //_displayPanel.setBackground(Color.RED);
       
       _panelOfLabels.add(_displayLabel, BorderLayout.WEST);
       _panelOfLabels.add(_headerLabel, BorderLayout.CENTER);
@@ -151,6 +158,28 @@ public class GUI
 
       // Display setup window for player 2, which waits until acceptable placement then exits
 
+      
    }
+   
+   public void setupGUIWindow()
+   {
+	     setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));    
+	     exitOnClose();    
+	     createButtonGrid();    
+	     addButtonPanel();   
+   }
+   
+   public void switchPlayer()
+   {
+	 if(_currentPlayer == _player1)
+	 {
+		 _currentPlayer = _player2;
+     }
+	 else
+	 {
+		 _currentPlayer = _player1;
+	 }
+   }
+   
 }
 
