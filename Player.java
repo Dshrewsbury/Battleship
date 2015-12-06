@@ -7,13 +7,13 @@ import java.util.Random;
 public class Player
 { 
 
-   // Player should own GUI
+   
    private static final int GRID_WIDTH             = 15;
    private static final int GRID_LENGTH            = 20;
    
    private GUI _colorGrid;
    private Grid _grid;
-   private String _name;
+   // private String _name;
    private int _xCoordinate  =  -1; //the first index given, indicating row
    private int _yCoordinate  = -1; //the second index given, indicating column
    private boolean _validTargetIs = false; //whether target coordinates have been “entered” before 
@@ -23,22 +23,9 @@ public class Player
    private Player _otherPlayer;
 
 
- public Player(String playerName)
+ public Player()
  {
-    _name = playerName;
-    
-    // We don't know if it will work like this or not as Ben is handling it
-    GUI _colorGrid = new GUI();
-    
-    _colorGrid.setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
-    
-    _colorGrid.exitOnClose();
-    
-    _colorGrid.createButtonGrid();
-    
-    _colorGrid.addButtonPanel();
-    
-    _colorGrid.setVisible(true);
+
  }
 
 
