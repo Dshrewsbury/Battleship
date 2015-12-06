@@ -72,7 +72,7 @@ public class Grid
  	boolean checkIfShipSunk(int x, int y) {return _shipGrid[x][y].checkIfShipSunk();}
 
  	// KIRSTEN/NOAH
- 	void setUpGrid()
+ 	void setUpGrid(int xCoordinate, int yCoordinate, int orientation)
  	{		
 		Ship[] shipArray = {aircraftCarrier, battleship, submarine, cruiser, destroyer};
 		int[] shipLocation;
@@ -91,9 +91,12 @@ public class Grid
 			aShip.setOrientation(orientation);
 			
 			// Does getLocation() include orientation?  If not, may want to consider adding getOrientation() method to UML.
-			shipLocation = aShip.getShipLocation()
+			shipLocation = aShip.getLocation();
 			
-			setShipOnGrid(aShip, shipLocation[0], shipLocation[1], orientation);
+		
+			//Modified by Kirsten Pierce on 12/5/15
+			aShip.setLocation(xCoordinate, yCoordinate);
+			aShip.setOrientation(orientation);
 		}
 		
  		// Repeat above for other ships, could just turn 5 ships into ship array
@@ -122,5 +125,4 @@ public class Grid
  		_colorGrid[xCoordinate][yCoordinate] = Color.GRAY;
 
  	}
-
 }
