@@ -74,7 +74,8 @@ public class Grid
  	// KIRSTEN/NOAH
  	void setUpGrid(int xCoordinate, int yCoordinate, int orientation)
  	{		
-		Ship[] shipArray = {aircraftCarrier, battleship, submarine, cruiser, destroyer};
+		Ship[] shipArray = {aircraftCarrier, battleship, submarine, cruiser,
+		      destroyer};
 		int[] shipLocation;
 		
 		// Display set up grid GUI
@@ -125,4 +126,8 @@ public class Grid
  		_colorGrid[xCoordinate][yCoordinate] = Color.GRAY;
 
  	}
+ 	
+ 	// Modified by Kirsten Pierce on 12/5/15 Added getShipsSunk method
+ 	int getShipsSunk() {return _shipsSunk;}
+
 }
