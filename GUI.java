@@ -165,7 +165,8 @@ public class GUI
    
    public void setupGUIWindow()
    {
-	     setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));    
+	     //setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));    
+	     _frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 	     exitOnClose();    
 	     createButtonGrid();    
 	     addButtonPanel();   
