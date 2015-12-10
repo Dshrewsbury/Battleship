@@ -42,6 +42,9 @@ public class GUI
          for (int j = 0; j < _buttonGrid[i].length; j++)
          {
             _buttonGrid[i][j] = new JButton();
+            
+            // KIRSTEN/NOAH HERE, Using currentPlayer, call function in Player that gets the status of color grid and returns either an int/Color based on what it is
+            // Based on that color setbackground to Red or White
             _buttonGrid[i][j].setBackground(Color.WHITE);
             _buttonGrid[i][j].addActionListener(new GridListener());
             _buttonPanel.add(_buttonGrid[i][j]);
@@ -75,6 +78,9 @@ public class GUI
                   
                   // Needs to know which player to use, we also need to change the color of the selected cell based off of response
                  // boolean result = _currentPlayer.takeATurn(row, col); 0 for miss 1 for hit? 
+                  
+                  // KIRSTEN/NOAH HERE, Using currentPlayer, call function in Player that sets the status of color grid in the Grid class if takeATurn returns as a hit
+                  // Then Based on that color setbackground to Red if its a hit
                   // changeGridColor(row, col, result);
                   // switchPlayer();
                }
