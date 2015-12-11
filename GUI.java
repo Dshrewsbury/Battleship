@@ -22,39 +22,76 @@ public class GUI
    
    // Instance variables, I'm assuming somewhere in here we'll add your own grid
    JButton[][] _buttonGrid = new JButton[20][15];
+   JButton[][] _buttonGrid2 = new JButton[20][15];
+   JButton _placeShipsButton = new JButton("  Place Ships  ");
    JFrame _frame = new JFrame();
    JPanel _buttonPanel = new JPanel();
    JPanel _displayPanel = new JPanel();
    JPanel _panelOfPanels = new JPanel();
    JPanel _panelOfLabels = new JPanel();
+   JPanel _panelOfButtons = new JPanel();
    JLabel _buttonLabel = new JLabel("Enemy Grid", SwingConstants.CENTER);
    JLabel _displayLabel = new JLabel("Your Grid", SwingConstants.CENTER);
    JLabel _headerLabel = new JLabel("BATTLESHIP", SwingConstants.CENTER);
    
-   public void createButtonGrid()
-   {  
-      // Set the layout of the button panel to a grid layout.
-      _buttonPanel.setLayout(new GridLayout(20, 15));
-      // NEED TO ADD HEADERS, A-J, 1-10
-      // Create the 2d array of buttons.
-      for (int i = 0; i < _buttonGrid.length; i++)
-      {
-         for (int j = 0; j < _buttonGrid[i].length; j++)
-         {
-            _buttonGrid[i][j] = new JButton();
-            
-            // KIRSTEN/NOAH HERE, Using currentPlayer, call function in Player that gets the status of color grid and returns either an int/Color based on what it is
-            // Based on that color setbackground to Red or White
-            _buttonGrid[i][j].setBackground(Color.WHITE);
-            _buttonGrid[i][j].addActionListener(new GridListener());
-            _buttonPanel.add(_buttonGrid[i][j]);
-         }
-      }
+   Rectangle _window;
+   int _winHeight;
+   int _winWidth;
+   
+   public void createShipPlacementButton()
+   { 
+       _placeShipsButton.addActionListener(new ButtonListener());
+       _panelOfButtons.setLayout(new GridLayout());
+       _panelOfButtons.setPreferredSize(new Dimension(200, 100));
+   }
+   
+   public void createButtonGrid(JPanel pannel, JButton[][] grid, GridListener listener)
+   { 
+       // Set the layout of the button panel to a grid layout.
+       pannel.setLayout(new GridLayout(20, 15));
+       // NEED TO ADD HEADERS, A-J, 1-10
+       // Create the 2d array of buttons.
+       for (int i = 0; i < grid.length; i++)
+       {
+          for (int j = 0; j < grid[i].length; j++)
+          {
+             grid[i][j] = new JButton();
+             
+             // KIRSTEN/NOAH HERE, Using currentPlayer, call function in Player that gets the status of color grid and returns either an int/Color based on what it is
+             // Based on that color set background to Red or White
+             grid[i][j].setBackground(Color.WHITE);
+             grid[i][j].addActionListener(listener);
+             pannel.add(grid[i][j]);
+          }
+       }
+   }
+   
+   private class ButtonListener implements ActionListener
+   {
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        JFrame dialogBox = new JFrame();
+        
+        JOptionPane.showMessageDialog(dialogBox, 
+                "You clicked the place ships button!", 
+                "Ship Placement", JOptionPane.INFORMATION_MESSAGE);
+        
+    }
+             
    }
    
    private class GridListener implements ActionListener
    {
-      public void actionPerformed(ActionEvent e) 
+       private JButton[][] _self = null;
+       
+       public GridListener(JButton[][] grid)
+       {
+           _self = grid;
+       }
+
+    public void actionPerformed(ActionEvent e) 
       {
          // Create a frame for a dialog box if the button is invalid.
          JFrame dialogBox;
@@ -66,8 +103,8 @@ public class GUI
             for (int col = 0; col < 15; col++) 
             {
                // If the button is valid, continue, otherwise, show an error.
-               if (_buttonGrid[row][col] == e.getSource() && 
-                     _buttonGrid[row][col].getBackground() == Color.WHITE)
+               if (_self[row][col] == e.getSource() && 
+                       _self[row][col].getBackground() == Color.WHITE)
                {
                   dialogBox = new JFrame();
                   
@@ -85,8 +122,8 @@ public class GUI
                   // switchPlayer();
                }
                
-               else if (_buttonGrid[row][col] == e.getSource() && 
-                     _buttonGrid[row][col].getBackground() == Color.WHITE)
+               else if (_self[row][col] == e.getSource() && 
+                       _self[row][col].getBackground() == Color.WHITE)
                {
                   dialogBox = new JFrame();
                   
@@ -105,9 +142,48 @@ public class GUI
       _buttonGrid[xCoordinate][yCoordinate].setBackground(color);
    }
    
+   private class WindowListener implements ComponentListener
+   {
+
+    @Override
+    public void componentHidden(ComponentEvent e)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e)
+    {
+        _window = _frame.getBounds();
+        _winHeight = (int) (_window.height * 0.80);
+        _winWidth = (int) (_window.width * 0.45);
+        
+        _buttonPanel.setPreferredSize(new Dimension(_winWidth, _winHeight));
+        _displayPanel.setPreferredSize(new Dimension(_winWidth, _winHeight));
+        _panelOfLabels.setPreferredSize(new Dimension(100, 100));
+        
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+             
+   }
+   
    
    public void addButtonPanel()
-   {  
+   {         
       _buttonLabel.setFont(new Font("Times New Roman", Font.PLAIN, 32));
       _displayLabel.setFont(new Font("Times New Roman", Font.PLAIN, 32));
       _headerLabel.setFont(new Font("Times New Roman", Font.BOLD, 50));
@@ -127,11 +203,14 @@ public class GUI
       _panelOfLabels.add(_headerLabel, BorderLayout.CENTER);
       _panelOfLabels.add(_buttonLabel, BorderLayout.EAST);
       
+      _panelOfButtons.add(_placeShipsButton);
+      
       _panelOfPanels.add(_displayPanel, BorderLayout.WEST);
       _panelOfPanels.add(_buttonPanel, BorderLayout.EAST);
       
       _frame.setLayout(new BorderLayout());
       _frame.add(_panelOfLabels, BorderLayout.NORTH);
+      _frame.add(_panelOfButtons, BorderLayout.LINE_START);
       _frame.add(_panelOfPanels, BorderLayout.SOUTH);
    }
    
@@ -171,10 +250,14 @@ public class GUI
    
    public void setupGUIWindow()
    {
-	     //setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));    
+	     //setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));   
+         
 	     _frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-	     exitOnClose();    
-	     createButtonGrid();    
+	     _frame.addComponentListener(new WindowListener());
+	     exitOnClose();  
+	     createShipPlacementButton();
+	     createButtonGrid(_displayPanel, _buttonGrid2, null);    // player
+	     createButtonGrid(_buttonPanel, _buttonGrid, new GridListener(_buttonGrid));      // enemy
 	     addButtonPanel();   
    }
    
