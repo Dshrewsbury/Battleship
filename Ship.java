@@ -84,13 +84,14 @@ public class Ship
     * Rotates the orientation of the ship. 0 is horizontal, 1 is vertical
     */
    public void rotateShip() {_orientation = (_orientation + 1) % 2;}
-
    
    
-   
-   
-   
-   
-   
-   
+   /**
+    * Sets the orientation of the ship
+    * @param orientation the orientation of the ship
+    */
+   public void setOrientation(int orientation)
+   {
+      _orientation = orientation;
+   }
 }
