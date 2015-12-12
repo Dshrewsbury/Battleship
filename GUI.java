@@ -1,4 +1,10 @@
 import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.GridLayout;
 import java.awt.dnd.*;
 
 import javax.swing.*;
@@ -45,7 +51,11 @@ public class GUI
             
             // KIRSTEN/NOAH HERE, Using currentPlayer, call function in Player that gets the status of color grid and returns either an int/Color based on what it is
             // Based on that color setbackground to Red or White
-            _buttonGrid[i][j].setBackground(Color.WHITE);
+            
+            
+            Color currentColor = _currentPlayer.returnColorFromGrid(i, j);    
+            _buttonGrid[i][j].setBackground(currentColor);
+            
             _buttonGrid[i][j].addActionListener(new GridListener());
             _buttonPanel.add(_buttonGrid[i][j]);
          }
@@ -77,10 +87,19 @@ public class GUI
                         "Button Coordinates", JOptionPane.INFORMATION_MESSAGE);
                   
                   // Needs to know which player to use, we also need to change the color of the selected cell based off of response
-                 // boolean result = _currentPlayer.takeATurn(row, col); 0 for miss 1 for hit? 
+                  //boolean result = _currentPlayer.takeATurn(row, col); //0 for miss 1 for hit? 
                   
                   // KIRSTEN/NOAH HERE, Using currentPlayer, call function in Player that sets the status of color grid in the Grid class if takeATurn returns as a hit
                   // Then Based on that color setbackground to Red if its a hit
+                  
+                  //initialize result from takeATurn
+                  int result = 1;
+                  
+                  //works if current player is initialized 
+                  _currentPlayer.setColorGrid(5, 5, result);
+                  
+                  _buttonGrid[5][5].setBackground(Color.RED);
+                  
                   // changeGridColor(row, col, result);
                   // switchPlayer();
                }
@@ -158,6 +177,10 @@ public class GUI
    {
       _player1 = new Player();
       _player2 = new Player();
+      
+      //Added the player's initialize grid that used to be in the main 12/11/15
+      _player1.initializeGrid(); 
+      _player2.initializeGrid();
 
       // Display setup window for player 1, which waits until acceptable placement then exits
       // in that display, have action listener for two buttons, one that calls the randomize function, 
@@ -171,24 +194,23 @@ public class GUI
    
    public void setupGUIWindow()
    {
-	     //setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));    
-	     _frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-	     exitOnClose();    
-	     createButtonGrid();    
-	     addButtonPanel();   
+        //setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));    
+        _frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        exitOnClose();    
+        createButtonGrid();    
+        addButtonPanel();   
    }
    
    public void switchPlayer()
    {
-	 if(_currentPlayer == _player1)
-	 {
-		 _currentPlayer = _player2;
+    if(_currentPlayer == _player1)
+    {
+       _currentPlayer = _player2;
      }
-	 else
-	 {
-		 _currentPlayer = _player1;
-	 }
+    else
+    {
+       _currentPlayer = _player1;
+    }
    }
    
 }
-

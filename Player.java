@@ -39,29 +39,29 @@ public class Player
        
     if(_validTargetIs)
     {
-	    // Valid move was made so check for hit, which will increment hit counter of ship in the grid class function, and check to see if ship was sunk
-	    if(_grid.isHit(_xCoordinate, _yCoordinate))
-	    {
-	       if (_grid.checkIfShipSunk(_xCoordinate, _yCoordinate))
-	       {
-	          _colorGrid.setColor(_xCoordinate, _yCoordinate, Color.RED);
-	          _grid._colorGrid[_xCoordinate][_yCoordinate] = Color.RED;  
-	       }
-	       
-	       else
-	       {
-	          _colorGrid.setColor(_xCoordinate, _yCoordinate, Color.ORANGE); //Red or some int that represents red
-	          _grid._colorGrid[_xCoordinate][_yCoordinate] = Color.ORANGE;         
-	       }
-	       
-	    } 
+       // Valid move was made so check for hit, which will increment hit counter of ship in the grid class function, and check to see if ship was sunk
+       if(_grid.isHit(_xCoordinate, _yCoordinate))
+       {
+          if (_grid.checkIfShipSunk(_xCoordinate, _yCoordinate))
+          {
+             _colorGrid.setColor(_xCoordinate, _yCoordinate, Color.RED);
+             _grid._colorGrid[_xCoordinate][_yCoordinate] = Color.RED;  
+          }
+          
+          else
+          {
+             _colorGrid.setColor(_xCoordinate, _yCoordinate, Color.ORANGE); //Red or some int that represents red
+             _grid._colorGrid[_xCoordinate][_yCoordinate] = Color.ORANGE;         
+          }
+          
+       } 
 
     }
   }
   
   public void initializeShips()
   {
-	 final int GRID_WIDTH             = 15;
+    final int GRID_WIDTH             = 15;
      final int GRID_LENGTH            = 20;
      final int HORIZONTAL_ORIENTATION = 0;
      final int VERICAL_ORIENTATION    = 1;
@@ -302,9 +302,18 @@ public class Player
       _grid = new Grid();
       //_grid.setUpGrid();
    }
+   
+   public Color returnColorFromGrid(int row, int col)
+   {
+      return _grid.getColor(row, col);
+   }
+   
+   public void setColorGrid(int row, int col, int result)
+   {
+      _grid.setColor(row, col, result);
+   }
 
   // Display GUI
    
   // Close GUI, should return whether or not there was a victory
 }
-
