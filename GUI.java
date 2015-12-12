@@ -48,30 +48,30 @@ public class GUI
    }
    
    
-   public void createButtonGrid()
-   {  
-      // Set the layout of the button panel to a grid layout.
-      _buttonPanel.setLayout(new GridLayout(20, 15));
-      // NEED TO ADD HEADERS, A-J, 1-10
-      // Create the 2d array of buttons.
-      for (int i = 0; i < _buttonGrid.length; i++)
-      {
-         for (int j = 0; j < _buttonGrid[i].length; j++)
-         {
-            _buttonGrid[i][j] = new JButton();
-            
-            // KIRSTEN/NOAH HERE, Using currentPlayer, call function in Player that gets the status of color grid and returns either an int/Color based on what it is
-            // Based on that color setbackground to Red or White
-            
-            
-            Color currentColor = _currentPlayer.returnColorFromGrid(i, j);    
-            _buttonGrid[i][j].setBackground(currentColor);
-            
-            _buttonGrid[i][j].addActionListener(new GridListener(_buttonGrid));
-            _buttonPanel.add(_buttonGrid[i][j]);
-         }
-      }
-   }
+//   public void createButtonGrid()
+//   {  
+//      // Set the layout of the button panel to a grid layout.
+//      _buttonPanel.setLayout(new GridLayout(20, 15));
+//      // NEED TO ADD HEADERS, A-J, 1-10
+//      // Create the 2d array of buttons.
+//      for (int i = 0; i < _buttonGrid.length; i++)
+//      {
+//         for (int j = 0; j < _buttonGrid[i].length; j++)
+//         {
+//            _buttonGrid[i][j] = new JButton();
+//            
+//            // KIRSTEN/NOAH HERE, Using currentPlayer, call function in Player that gets the status of color grid and returns either an int/Color based on what it is
+//            // Based on that color setbackground to Red or White
+//            
+//            
+//            Color currentColor = _currentPlayer.returnColorFromGrid(i, j);    
+//            _buttonGrid[i][j].setBackground(currentColor);
+//            
+//            _buttonGrid[i][j].addActionListener(new GridListener(_buttonGrid));
+//            _buttonPanel.add(_buttonGrid[i][j]);
+//         }
+//      }
+//   }
 
    Rectangle _window;
    int _winHeight;
@@ -296,11 +296,11 @@ public class GUI
    
    public void setupGUIWindow()
    {
-        //setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));    
-        _frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-        exitOnClose();    
-        createButtonGrid();    
-        addButtonPanel();   
+//        //setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));    
+//        _frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+//        exitOnClose();    
+//        createButtonGrid();    
+//        addButtonPanel();   
         
 	     //setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));   
          
