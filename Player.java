@@ -1,6 +1,5 @@
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.Point;
 import java.util.Random;
 
 
@@ -9,10 +8,12 @@ public class Player
 
    // Player should own GUI
    private static final int GRID_WIDTH             = 15;
-   private static final int GRID_LENGTH            = 20;
+   private static final int GRID_LENGTH            = 15;
    
    private Grid _colorGrid;
    private Grid _grid;
+   
+   private Ship[][] _shipGrid;
 
    private int _xCoordinate  =  -1; //the first index given, indicating row
    private int _yCoordinate  = -1; //the second index given, indicating column
@@ -67,13 +68,13 @@ public class Player
   
   public void initializeShips()
   {
-    final int GRID_WIDTH             = 15;
-     final int GRID_LENGTH            = 20;
+     final int GRID_WIDTH             = 15;
+     final int GRID_LENGTH            = 15;
      final int HORIZONTAL_ORIENTATION = 0;
      final int VERICAL_ORIENTATION    = 1;
      
      final int AIRCRAFT_SIZE = 5;
-     final int BATTLESHIP_SIZE =4;
+     final int BATTLESHIP_SIZE = 4;
      final int SUB_SIZE = 3;
      final int CRUISER_SIZE = 3;
      final int DESTROYER_SIZE = 2;
@@ -87,11 +88,13 @@ public class Player
 
      Ship[] shipTypes = { aircraftCarrier, battleship, submarine, cruiser,
            destroyer };
-     Ship[][] shipGrid = new Ship[GRID_WIDTH][GRID_LENGTH];
+     _shipGrid = new Ship[GRID_WIDTH][GRID_LENGTH];
 
      Random orientationGenerator = new Random();
      Random xCoordinateGenerator = new Random();
      Random yCoordinateGenerator = new Random();
+     
+     Point[] coordinateList;
 
      int orientation;
      int xCoordinate;
@@ -107,6 +110,9 @@ public class Player
         // initially every ship is not set.
         shipSet = false;
         shipsIntersect = false;
+        validCoordinates = false;
+        
+        coordinateList = new Point[shipTypes[i].getSize()];
         
         while (!shipSet)
         {
@@ -115,24 +121,24 @@ public class Player
            xCoordinate = xCoordinateGenerator.nextInt((GRID_WIDTH));
            yCoordinate = yCoordinateGenerator.nextInt((GRID_LENGTH));
            orientation = orientationGenerator
-                 .nextInt((VERICAL_ORIENTATION - HORIZONTAL_ORIENTATION) + 1);
-           
+                 .nextInt(2);
+        
            
            // Determine if the ship will be out of bounds, based starting
            // coordinates and ship's size
            if (orientation == VERICAL_ORIENTATION 
-                 && xCoordinate + shipTypes[i].getSize() >= GRID_WIDTH)
+                 && xCoordinate + shipTypes[i].getSize() - 1 >= GRID_LENGTH)
            {
               validCoordinates = false;
            }
            
            else if (orientation == HORIZONTAL_ORIENTATION && yCoordinate 
-                 + shipTypes[i].getSize() >= GRID_LENGTH )
+                 + shipTypes[i].getSize() - 1 >= GRID_WIDTH )
            {
               validCoordinates = false;
            }
            
-           else if (shipGrid[xCoordinate][yCoordinate] != null)
+           else if (_shipGrid[xCoordinate][yCoordinate] != null)
            {
               validCoordinates = false;
            }
@@ -143,63 +149,103 @@ public class Player
               validCoordinates = true;
            }
            
-           // If the coordinates are valid, place a reference to the specific
-           // at appropriate grid locations
-           if (validCoordinates)
+           
+           // If orientation horizontal, place ship on starting coordinates,
+           // and rightward for ship size - 1 units
+           if (orientation == HORIZONTAL_ORIENTATION && validCoordinates)
            {
-              // If orientation horizontal, place ship on starting coordinates,
-              // and rightward for ship size - 1 units
-              if (orientation == HORIZONTAL_ORIENTATION)
+              for (int j = 0; j < shipTypes[i].getSize(); j++)
               {
+                 coordinateList[j] = new Point(xCoordinate, yCoordinate + j);
+              }
+              
+              for (int j = 0; j < shipTypes[i].getSize(); j++)
+              {
+               
+
+                 if (_shipGrid[coordinateList[j].x][coordinateList[j].y] != null)
+                 {
+                    validCoordinates = false;
+                 }
+              }
+              
+              // If the coordinates are valid, place a reference to the specific
+              // at appropriate grid locations
+              if (validCoordinates)
+              {
+              
                  for (int j = 0; j < shipTypes[i].getSize() &&
                        !shipsIntersect; j++)
                  {
-                    // Makes sure ship references (besides starting coordinates
-                    //) aren't intersecting with already placed ships
-                    if (shipGrid[xCoordinate][yCoordinate + j] == null)
+                    if (_shipGrid[xCoordinate][yCoordinate + j] == null)
                     {
-                       shipGrid[xCoordinate][yCoordinate + j] = shipTypes[i];
+                       _shipGrid[xCoordinate][yCoordinate + j] = shipTypes[i];                       
                     }
                     
                     else
                     {
+                     
                        shipsIntersect = true;
                     }
                  }
               }
+           }
               
-              // If ship's orientation is vertical, then place ship reference
-              // on starting coordinates and downward for ship size - 1 units
-              else
+           // If ship's orientation is vertical, then place ship reference
+           // on starting coordinates and downward for ship size - 1 units
+           else if (orientation == VERICAL_ORIENTATION && validCoordinates)
+           {
+              for (int j = 0; j < shipTypes[i].getSize(); j++)
               {
-                 for (int j = 0; j < shipTypes[i].getSize() && 
+                 coordinateList[j] = new Point(xCoordinate + j, yCoordinate);
+              }
+              
+              for (int j = 0; j < shipTypes[i].getSize(); j++)
+              {
+                
+
+                 if (_shipGrid[coordinateList[j].x][coordinateList[j].y] != null)
+                 {
+                    validCoordinates = false;
+                 }
+              }
+              
+              // If the coordinates are valid, place a reference to the specific
+              // at appropriate grid locations
+              if (validCoordinates)
+              {
+              
+                 for (int j = 0; j < shipTypes[i].getSize() &&
                        !shipsIntersect; j++)
                  {
-                    
-                    // Makes sure ship references (besides starting coordinates
-                    //) aren't intersecting with already placed ships
-                    if (shipGrid[xCoordinate + j][yCoordinate] == null)
+                    if (_shipGrid[xCoordinate + j][yCoordinate] == null)
                     {
-                       shipGrid[xCoordinate + j][yCoordinate] = shipTypes[i];
+                       _shipGrid[xCoordinate + j][yCoordinate] = shipTypes[i];                       
                     }
                     
                     else
                     {
+                       
                        shipsIntersect = true;
                     }
                  }
               }
+           }
               
-              // If ship references have all occupied empty spaces
-              //ship was successfully set
-              if (!shipsIntersect)
-              {
-                 shipSet = true;
-              }
+           // If ship references have all occupied empty spaces
+           //ship was successfully set
+        
+           if (!shipsIntersect && validCoordinates)
+           {
+             
+              shipSet = true;
            }
         }
      }
+     
+     _grid.setShipsOnGrid(_shipGrid);
   }
+  
 
 //NEED TO DISCUSS!!!!!
 // -Hold off on this method for now. Need to know more about how GUI will work
@@ -304,9 +350,14 @@ public class Player
 
   // Initializes grid with ships placed
    public void initializeGrid()
-   {
+   {   
       _grid = new Grid();
       //_grid.setUpGrid();
+   }
+   
+   public Color returnColorFromOwnGrid(int row, int col)
+   {
+      return _grid.isShipAt(row, col);
    }
    
    public Color returnColorFromGrid(int row, int col)

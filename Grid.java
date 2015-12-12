@@ -20,7 +20,7 @@ public class Grid
       submarine = new Ship("submarine", 3);
       cruiser = new Ship("cruiser", 3);
       destroyer = new Ship("destroyer", 2);
-    
+      _shipGrid = new Ship[20][15];
       _colorGrid = new Color[20][15];
  
             // Initialize colorGrid to all blue for water - MICHAEL/BROCK
@@ -29,8 +29,9 @@ public class Grid
                for (int j = 0; j < _colorGrid[i].length; j++)
                {
                   _colorGrid[i][j] = Color.BLUE;
+                  _shipGrid[i][j] = null;
                }
-            }
+            }            
    }
 
    // Return whether it was a hit or not - KIRSTEN/NOAH
@@ -110,25 +111,13 @@ public class Grid
 //    }
 
    // Sets the ship on the grid, with the ship, the coordinates, and the orientation. - MICHAEL/BROCK
-   void setShipOnGrid(Ship ship, int xCoordinate, int yCoordinate, byte orientation)
+   public void setShipsOnGrid(Ship[][] shipGrid)
    {
-      int shipSize = ship.getSize();
-
-      // If its horizontal set the x axis values to the ship
-      for(int i = 0; i < shipSize; i++)
-      {
-         _shipGrid[xCoordinate + i][yCoordinate] = ship;
-      }
-      // Else if its vertical set the y axis values to the ship
-      
-
-      // For now at least we'll say the 
-      _colorGrid[xCoordinate][yCoordinate] = Color.GRAY;
-
+      _shipGrid = shipGrid;
    }
    
    // Modified by Kirsten Pierce on 12/5/15 Added getShipsSunk method
-   int getShipsSunk() {return _shipsSunk;}
+   public int getShipsSunk() {return _shipsSunk;}
 
    public void setColor(int row, int col, Color color)
    {
@@ -139,5 +128,16 @@ public class Grid
    {
       return _colorGrid[row][col];  
    }
+   
+   public Color isShipAt(int row, int col)
+   {
+      Color shipOrNot = Color.GRAY;
+      
+      if(_shipGrid[row][col] == null)
+         shipOrNot = Color.BLUE;
+      
+      return shipOrNot;
+   }
+   
 
 }

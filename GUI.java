@@ -27,8 +27,8 @@ public class GUI
    private Player _currentPlayer;
    
    // Instance variables, I'm assuming somewhere in here we'll add your own grid
-   JButton[][] _buttonGrid = new JButton[20][15];
-   JButton[][] _buttonGrid2 = new JButton[20][15];
+   JButton[][] _buttonGrid = new JButton[15][15];
+   JButton[][] _buttonGrid2 = new JButton[15][15];
    JButton _placeShipsButton = new JButton("  Place Ships  ");
    JFrame _frame = new JFrame();
    JPanel _buttonPanel = new JPanel();
@@ -51,7 +51,7 @@ public class GUI
 //   public void createButtonGrid()
 //   {  
 //      // Set the layout of the button panel to a grid layout.
-//      _buttonPanel.setLayout(new GridLayout(20, 15));
+//      _buttonPanel.setLayout(new GridLayout(15, 15));
 //      // NEED TO ADD HEADERS, A-J, 1-10
 //      // Create the 2d array of buttons.
 //      for (int i = 0; i < _buttonGrid.length; i++)
@@ -87,7 +87,7 @@ public class GUI
    public void createButtonGrid(JPanel pannel, JButton[][] grid, GridListener listener)
    { 
        // Set the layout of the button panel to a grid layout.
-       pannel.setLayout(new GridLayout(20, 15));
+       pannel.setLayout(new GridLayout(15, 15));
        // NEED TO ADD HEADERS, A-J, 1-10
        // Create the 2d array of buttons.
        for (int i = 0; i < grid.length; i++)
@@ -98,7 +98,21 @@ public class GUI
              
              // KIRSTEN/NOAH HERE, Using currentPlayer, call function in Player that gets the status of color grid and returns either an int/Color based on what it is
              // Based on that color set background to Red or White
-             grid[i][j].setBackground(Color.WHITE);
+
+             //grid[i][j].setBackground(Color.WHITE);
+             
+             // If its our Grid call function that would return grey if a ship was there
+             if(listener == null)
+             {
+                grid[i][j].setBackground(_currentPlayer.returnColorFromOwnGrid(i, j));
+             }
+             
+             else
+             {
+                Color currentColor = _currentPlayer.returnColorFromGrid(i, j);
+                grid[i][j].setBackground(currentColor);               
+             }
+                
              grid[i][j].addActionListener(listener);
              pannel.add(grid[i][j]);
           }
@@ -111,11 +125,14 @@ public class GUI
        @Override
        public void actionPerformed(ActionEvent e)
        {
-           JFrame dialogBox = new JFrame();
-           
-           JOptionPane.showMessageDialog(dialogBox, 
-                   "You clicked the place ships button!", 
-                   "Ship Placement", JOptionPane.INFORMATION_MESSAGE);
+          _currentPlayer.initializeShips();
+          for (int i = 0; i < _buttonGrid2.length; i++)
+          {
+             for (int j = 0; j < _buttonGrid2[i].length; j++)
+             {
+                _buttonGrid2[i][j].setBackground(_currentPlayer.returnColorFromOwnGrid(i, j));
+             }
+          }
            
        }            
    }
@@ -137,7 +154,7 @@ public class GUI
          
          // Use a nested for loop to loop through the buttons and find which
          // one was clicked.
-         for (int row = 0; row < 20; row++) 
+         for (int row = 0; row < 15; row++) 
          {
                for (int col = 0; col < 15; col++) 
                {
