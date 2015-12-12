@@ -130,24 +130,14 @@ public class Grid
    // Modified by Kirsten Pierce on 12/5/15 Added getShipsSunk method
    int getShipsSunk() {return _shipsSunk;}
 
-   public void setColor(int row, int col, int result)
+   public void setColor(int row, int col, Color color)
    {
-      if (result == 0)
-      {
-         _colorGrid[row][col] = Color.YELLOW;
-      }
-      else if (result == 1)
-      {
-         _colorGrid[row][col] = Color.RED;
-      }
-      
-      
+      _colorGrid[row][col] = color;  
    }
 
    public Color getColor(int row, int col)
    {
-      return _colorGrid[row][col];
-      
+      return _colorGrid[row][col];  
    }
 
 }

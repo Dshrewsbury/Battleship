@@ -40,7 +40,14 @@ public class GUI
    JLabel _displayLabel = new JLabel("Your Grid", SwingConstants.CENTER);
    JLabel _headerLabel = new JLabel("BATTLESHIP", SwingConstants.CENTER);
    
-<<<<<<< HEAD
+   public GUI()
+   {
+      _player1 = new Player();
+      _player2 = new Player();
+      _currentPlayer = _player1;
+   }
+   
+   
    public void createButtonGrid()
    {  
       // Set the layout of the button panel to a grid layout.
@@ -60,11 +67,12 @@ public class GUI
             Color currentColor = _currentPlayer.returnColorFromGrid(i, j);    
             _buttonGrid[i][j].setBackground(currentColor);
             
-            _buttonGrid[i][j].addActionListener(new GridListener());
+            _buttonGrid[i][j].addActionListener(new GridListener(_buttonGrid));
             _buttonPanel.add(_buttonGrid[i][j]);
          }
       }
-=======
+   }
+
    Rectangle _window;
    int _winHeight;
    int _winWidth;
@@ -100,18 +108,16 @@ public class GUI
    private class ButtonListener implements ActionListener
    {
 
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        JFrame dialogBox = new JFrame();
-        
-        JOptionPane.showMessageDialog(dialogBox, 
-                "You clicked the place ships button!", 
-                "Ship Placement", JOptionPane.INFORMATION_MESSAGE);
-        
-    }
-             
->>>>>>> refs/heads/pr/7
+       @Override
+       public void actionPerformed(ActionEvent e)
+       {
+           JFrame dialogBox = new JFrame();
+           
+           JOptionPane.showMessageDialog(dialogBox, 
+                   "You clicked the place ships button!", 
+                   "Ship Placement", JOptionPane.INFORMATION_MESSAGE);
+           
+       }            
    }
    
    private class GridListener implements ActionListener
@@ -123,8 +129,9 @@ public class GUI
            _self = grid;
        }
 
-    public void actionPerformed(ActionEvent e) 
+      public void actionPerformed(ActionEvent e) 
       {
+      
          // Create a frame for a dialog box if the button is invalid.
          JFrame dialogBox;
          
@@ -132,50 +139,47 @@ public class GUI
          // one was clicked.
          for (int row = 0; row < 20; row++) 
          {
-            for (int col = 0; col < 15; col++) 
-            {
-               // If the button is valid, continue, otherwise, show an error.
-               if (_self[row][col] == e.getSource() && 
-                       _self[row][col].getBackground() == Color.WHITE)
+               for (int col = 0; col < 15; col++) 
                {
-                  dialogBox = new JFrame();
+                  // If the button is valid, continue, otherwise, show an error.
+                  if (_self[row][col] == e.getSource() && 
+                          _self[row][col].getBackground() == Color.WHITE)
+                  {
+                     dialogBox = new JFrame();
+                     
+                     // Display a coordinate message.
+                     JOptionPane.showMessageDialog(dialogBox, 
+                           "Coordinates: " + row + ", " + col, 
+                           "Button Coordinates", JOptionPane.INFORMATION_MESSAGE);
+                     
+                     // Needs to know which player to use, we also need to change the color of the selected cell based off of response
+                     boolean result = _currentPlayer.takeATurn(row, col); //0 for miss 1 for hit? 
+                     
+                     // KIRSTEN/NOAH HERE, Using currentPlayer, call function in Player that sets the status of color grid in the Grid class if takeATurn returns as a hit
+                     // Then Based on that color setbackground to Red if its a hit
+                     
+                     //works if current player is initialized 
+                     _currentPlayer.setColorGrid(row, col, result ? Color.ORANGE : Color.WHITE);
+                     
+                     _buttonGrid[row][col].setBackground(result ? Color.ORANGE : Color.WHITE);
+                     
+                     // changeGridColor(row, col, result);
+                     // switchPlayer();
+                  }
                   
-                  // Display a coordinate message.
-                  JOptionPane.showMessageDialog(dialogBox, 
-                        "Coordinates: " + row + ", " + col, 
-                        "Button Coordinates", JOptionPane.INFORMATION_MESSAGE);
-                  
-                  // Needs to know which player to use, we also need to change the color of the selected cell based off of response
-                  //boolean result = _currentPlayer.takeATurn(row, col); //0 for miss 1 for hit? 
-                  
-                  // KIRSTEN/NOAH HERE, Using currentPlayer, call function in Player that sets the status of color grid in the Grid class if takeATurn returns as a hit
-                  // Then Based on that color setbackground to Red if its a hit
-                  
-                  //initialize result from takeATurn
-                  int result = 1;
-                  
-                  //works if current player is initialized 
-                  _currentPlayer.setColorGrid(5, 5, result);
-                  
-                  _buttonGrid[5][5].setBackground(Color.RED);
-                  
-                  // changeGridColor(row, col, result);
-                  // switchPlayer();
-               }
-               
-               else if (_self[row][col] == e.getSource() && 
-                       _self[row][col].getBackground() == Color.WHITE)
-               {
-                  dialogBox = new JFrame();
-                  
-                  // Display an error message.
-                  JOptionPane.showMessageDialog(dialogBox, 
-                        "Button already chosen", "Invalid Button", 
-                        JOptionPane.ERROR_MESSAGE);
+                  else if (_self[row][col] == e.getSource() && 
+                          _self[row][col].getBackground() == Color.WHITE)
+                  {
+                     dialogBox = new JFrame();
+                     
+                     // Display an error message.
+                     JOptionPane.showMessageDialog(dialogBox, 
+                           "Button already chosen", "Invalid Button", 
+                           JOptionPane.ERROR_MESSAGE);
+                  }
                }
             }
-         }
-      }      
+         }  
    }
    
    public void setColor(int xCoordinate, int yCoordinate, Color color)
@@ -213,12 +217,12 @@ public class GUI
         
     }
 
-    @Override
-    public void componentShown(ComponentEvent e)
-    {
-        // TODO Auto-generated method stub
-        
-    }
+       @Override
+       public void componentShown(ComponentEvent e)
+       {
+           // TODO Auto-generated method stub
+           
+       }
              
    }
    
@@ -236,9 +240,6 @@ public class GUI
       _buttonPanel.setPreferredSize( new Dimension(850, 850));
       _displayPanel.setPreferredSize(new Dimension(850, 850));
       _panelOfLabels.setPreferredSize(new Dimension(100, 100));
-      
-      // TODO Remove later
-      //_displayPanel.setBackground(Color.RED);
       
       _panelOfLabels.add(_displayLabel, BorderLayout.WEST);
       _panelOfLabels.add(_headerLabel, BorderLayout.CENTER);
@@ -295,13 +296,12 @@ public class GUI
    
    public void setupGUIWindow()
    {
-<<<<<<< HEAD
         //setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));    
         _frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         exitOnClose();    
         createButtonGrid();    
         addButtonPanel();   
-=======
+        
 	     //setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));   
          
 	     _frame.setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -311,19 +311,18 @@ public class GUI
 	     createButtonGrid(_displayPanel, _buttonGrid2, null);    // player
 	     createButtonGrid(_buttonPanel, _buttonGrid, new GridListener(_buttonGrid));      // enemy
 	     addButtonPanel();   
->>>>>>> refs/heads/pr/7
    }
    
    public void switchPlayer()
    {
-    if(_currentPlayer == _player1)
-    {
-       _currentPlayer = _player2;
-     }
-    else
-    {
-       _currentPlayer = _player1;
-    }
+       if(_currentPlayer == _player1)
+       {
+          _currentPlayer = _player2;
+       }
+       else
+       {
+          _currentPlayer = _player1;
+       }
    }
    
 }

@@ -11,7 +11,7 @@ public class Player
    private static final int GRID_WIDTH             = 15;
    private static final int GRID_LENGTH            = 20;
    
-   private GUI _colorGrid;
+   private Grid _colorGrid;
    private Grid _grid;
 
    private int _xCoordinate  =  -1; //the first index given, indicating row
@@ -23,13 +23,15 @@ public class Player
    //private Player _otherPlayer;
 
 
- public Player()
- { }
+  public Player()
+  { 
+     _grid = new Grid();
+  }
 
 
-  public void takeATurn(int xCoordinate, int yCoordinate)
+  public boolean takeATurn(int xCoordinate, int yCoordinate)
   {
-  
+       boolean isHit = false;
        _xCoordinate = xCoordinate;
        _yCoordinate = yCoordinate;
 
@@ -46,17 +48,21 @@ public class Player
           {
              _colorGrid.setColor(_xCoordinate, _yCoordinate, Color.RED);
              _grid._colorGrid[_xCoordinate][_yCoordinate] = Color.RED;  
+             isHit = true;
           }
           
           else
           {
              _colorGrid.setColor(_xCoordinate, _yCoordinate, Color.ORANGE); //Red or some int that represents red
-             _grid._colorGrid[_xCoordinate][_yCoordinate] = Color.ORANGE;         
+             _grid._colorGrid[_xCoordinate][_yCoordinate] = Color.ORANGE;   
+             isHit = false;
           }
           
        } 
 
     }
+    
+    return isHit;
   }
   
   public void initializeShips()
@@ -308,9 +314,9 @@ public class Player
       return _grid.getColor(row, col);
    }
    
-   public void setColorGrid(int row, int col, int result)
+   public void setColorGrid(int row, int col, Color color)
    {
-      _grid.setColor(row, col, result);
+      _grid.setColor(row, col, color);
    }
 
   // Display GUI
